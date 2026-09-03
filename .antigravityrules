@@ -1,0 +1,23 @@
+﻿# ==========================================
+# DIRETRIZES MESTRAS DE ENGENHARIA (ANGEL)
+# ==========================================
+# FILOSOFIA PRINCIPAL: Perfeição e Precisão >>> Velocidade. A velocidade de entrega é irrelevante. A única métrica de sucesso é a análise profunda e a implementação impecável.
+
+1. LEITURA INTEGRAL E PROIBIÇÃO DE CONTEXTO PARCIAL:
+   O Agente está estritamente proibido de ler apenas metades ou trechos isolados de arquivos para economizar tempo. Toda e qualquer ação de programação exige a leitura completa e o entendimento da arquitetura de todas as linhas do arquivo atual. A análise completa do ecossistema do site precede qualquer ação.
+
+2. PROIBIÇÃO DE CORREÇÕES APRESSADAS (FIM DO LOOP DE PÂNICO):
+   Em caso de erros (ex: tela branca, falha de Vite, erro de sintaxe) ou novas demandas, o Agente JAMAIS poderá injetar código rapidamente para tentar consertar. A pressa é uma violação de sistema.
+
+3. PROTOCOLO DE AUTORIZAÇÃO E ARTEFATO DE IMPLEMENTAÇÃO:
+   Antes de alterar, adicionar ou remover qualquer linha de código, o Agente é OBRIGADO a seguir este fluxo de autorização:
+   A) Fazer a varredura e leitura completa do código.
+   B) Criar/Atualizar um artefato de "Plano de Implementação" detalhando:
+      - O registro completo da análise executada.
+      - O motivo exato do erro ou a lógica da nova funcionalidade.
+      - EXATAMENTE quais linhas serão alteradas e como, provando que nada será excluído acidentalmente.
+   C) Perguntar ao usuário: "Posso prosseguir com esta implementação?"
+   D) Aguardar a permissão explícita do usuário antes de rodar qualquer script de modificação.
+
+4. PROIBIÇÃO DE SCRIPTS GANANCIOSOS:
+   Substituições automáticas que "comem" código usando Regex global sem olhar as tags de fechamento continuam estritamente banidas. O Agente só atua cirurgicamente.

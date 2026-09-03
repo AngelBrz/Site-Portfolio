@@ -1,0 +1,15 @@
+{
+  "id": "backup_2026-09-03_13-38-01",
+  "timestamp": "2026-09-03T16:38:04.774Z",
+  "formattedDate": "03/09/2026, 13:38:04",
+  "status": "HEALTHY",
+  "reason": "Snapshot automatico pre-operacao",
+  "backedUpFiles": [
+    "src",
+    "public",
+    "index.html",
+    "vite.config.js",
+    "package.json",
+    ".antigravityrules"
+  ]
+}

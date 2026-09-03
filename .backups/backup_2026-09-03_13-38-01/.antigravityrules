@@ -1,0 +1,48 @@
+
+
+---
+
+## 1. Lei do Backup Temporal Inteligente (Pre-Flight Snapshot com Tag de Saúde)
+- ANTES de qualquer ação em `src/`, `public/` ou na raiz, a IA executa o snapshot temporal para `.backups/backup_YYYY-MM-DD_HH-mm-ss/`.
+- Cada backup registra se o código estava compilando e funcional (`HEALTHY`) ou com erros (`BROKEN`).
+
+## 2. Lei do Rollback para o Último Estado Saudável ("Last Known Good State")
+- Ao comando "volte o site como era antes", o sistema NUNCA restaura um backup que estava com tela branca ou quebrado. Ele pula automaticamente snapshots corrompidos e restaura diretamente o **Último Estado Saudável Comprovado (HEALTHY)**.
+- Ao comando "esse tá errado, volte mais um", ele busca o estado saudável anterior na pilha.
+- Executar rollback NUNCA gera novos backups sobrepondo o histórico.
+
+## 3. Lei da Integridade Sintática (Aspas Flexíveis, Zero Alucinação)
+- A IA PODE excluir ou alterar aspas quando a lógica exigir (ex: converter string `'100'` em número `100` ou remover uma propriedade inteira).
+- É TERMINANTEMENTE PROIBIDA a alucinação em cascata ou regex descontrolado que arranca aspas de atributos JSX alheios (`className=`, `alt=`), gerando quebras de sintaxe.
+- O critério absoluto é: o arquivo DEVE continuar compilando com sintaxe válida.
+
+## 4. Protocolo Obrigatório Anti-Tela-Branca / Anti-Tela-Preta (Inspeção Pré-Entrega)
+- A IA é PROIBIDA de entregar uma tarefa ao usuário sem antes testar a integridade da aplicação.
+- A IA deve obrigatoriamente rodar a checagem de compilação e inspecionar o console do navegador (via Chrome DevTools MCP ou verificação do Vite).
+- Se houver tela branca, tela preta ou erros fatais no console (`Uncaught Error`), a IA NÃO pode entregar a resposta. Ela deve corrigir o erro ou disparar o rollback antes de falar com o usuário.
+
+## 5. Confinamento de Escopo e Proibição de Deleção Arbitrária
+- Para micro-ajustes, a IA mexe apenas nas linhas solicitadas.
+- Proibido excluir pastas ou arquivos funcionais sem autorização expressa do usuário.
+- Para novas criações autorizadas (novas seções/funcionalidades), a IA tem total liberdade criativa mantendo o backup ativo.
+
+## 6. Chave Bipolar de Escopo: "Modo Cirurgia" vs "Modo Arquiteto"
+- **Modo Cirurgia (Padrão para correções e micro-ajustes)**: Foco milimétrico na linha solicitada (máximo 1 a 10 linhas). Proibido encostar em código ou CSS vizinho.
+- **Modo Arquiteto (Para criação de novas features)**: Quando o usuário pedir explicitamente para criar uma nova seção, componente ou funcionalidade, a IA tem total liberdade criativa para estruturar JSX, CSS e animações, sempre executando o pré-voo de backup e a validação pré-entrega via MCP Chrome DevTools / Playwright.
+
+## 7. Protocolo Cirúrgico de Remoção de Ícones e Emojis Não Autorizados
+- Remoção de Emoji: Remove apenas o caractere do emoji dentro das aspas.
+- Remoção de Componente de Ícone (ex: `<Trophy />`): Remove apenas a tag JSX do ícone e seu respectivo import no topo. Proibido tocar no restante do componente.
+
+## 8. Lei da Preservação de Encoding Windows (UTF-8 Limpo)
+- Toda gravação no Windows deve respeitar UTF-8 puro sem BOM e manter quebras de linha nativas, impedindo mojibake (`negÃ³cio`).
+
+## 16. Lei da Segregação Oficial de Portas e Projetos (Isolamento Estrito Antigravity)
+- **Regra Absoluta de Portas e Ambientes**: Cada projeto possui sua porta e workspace estritamente definidos:
+  - **Porta 5173**: Angel Marketing Dashboard -> Workspace Antigravity: Marketing Anúncios (Pasta: F:\Projetos\Marketing-Anuncios)
+  - **Porta 5174**: Site Portfólio Principal -> Workspace Antigravity: Site Portfólio (Pasta: F:\Projetos\Site-Portfolio)
+  - **Porta 5175**: Montador de Contratos, Serviços & Funções -> Workspace Antigravity: Angente (Pasta: E:\Projetos\Angente)
+  - **Porta 5678 / 5679**: Central de Automações n8n -> Workspace Antigravity: ADS (Pasta: F:\Projetos\ADS)
+  - **Porta 3000**: Aether Marketing Suite OS -> Workspace Antigravity: Aether Suite OS (Pasta: F:\Aether Marketing Suite OS\ams-core-dashboard)
+- **Proibição de Sobreposição**: A IA é terminantemente proibida de executar comandos em portas trocadas ou misturar arquivos de diferentes workspaces. Toda execução local deve respeitar a flag --strictPort.
+
