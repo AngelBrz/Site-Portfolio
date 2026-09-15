@@ -1,5 +1,10 @@
 import React, { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import {
   ArrowRight,
   Smartphone,
@@ -265,6 +270,23 @@ export default function App() {
   ]);
   const [openFaq, setOpenFaq] = useState(null);
 
+  // Phone Scroll Animation Hooks
+  const phoneRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: phoneRef,
+    offset: ["0 1", "0.5 0.5", "1 0"],
+  });
+  const phoneX = useTransform(
+    scrollYProgress,
+    [0, 0.35, 0.65, 1],
+    [150, 0, 0, 150],
+  );
+  const phoneOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.35, 0.65, 1],
+    [0, 1, 1, 0],
+  );
+
   const toggleService = (id) => {
     setSelectedServices((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
@@ -382,26 +404,26 @@ export default function App() {
               </a>
             </div>
           </Reveal>
-
-          <Reveal delay={0.35}>
-            <div className="tools-strip-container">
-              <div className="tools-strip-label">
-                Tecnologias &amp; Plataformas Homologadas
-              </div>
-              <div className="tools-pills-row">
-                <span className="tool-pill">Meta Business Partner</span>
-                <span className="tool-pill">Google Ads</span>
-                <span className="tool-pill">ManyChat Pro</span>
-                <span className="tool-pill">Automações IA</span>
-                <span className="tool-pill">Captação Audiovisual</span>
-                <span className="tool-pill">WhatsApp API</span>
-              </div>
-            </div>
-          </Reveal>
         </div>
+
+        <Reveal delay={0.35}>
+          <div className="tools-strip-container">
+            <div className="tools-strip-label">
+              Tecnologias &amp; Plataformas Homologadas
+            </div>
+            <div className="tools-pills-row">
+              <span className="tool-pill">Meta Business Partner</span>
+              <span className="tool-pill">Google Ads</span>
+              <span className="tool-pill">ManyChat Pro</span>
+              <span className="tool-pill">Automações IA</span>
+              <span className="tool-pill">Captação Audiovisual</span>
+              <span className="tool-pill">WhatsApp API</span>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
-      <section className="phone-section">
+      <section className="phone-section" ref={phoneRef}>
         <div className="container">
           <div className="phone-section-inner">
             <Reveal>
@@ -447,7 +469,7 @@ export default function App() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.2}>
+            <motion.div style={{ x: phoneX, opacity: phoneOpacity }}>
               <div className="phone-mockup-wrapper">
                 <div className="phone-frame">
                   <div className="phone-notch" />
@@ -521,7 +543,7 @@ export default function App() {
                   </div>
                 </div>
               </div>
-            </Reveal>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -594,10 +616,6 @@ export default function App() {
               items={CASES_DATA}
               renderItem={(c) => (
                 <div className="case-card-editorial">
-                  <div className="case-thumb-wrap">
-                    <img src={c.src} alt={c.name} loading="lazy" />
-                    <span className="case-tag-floating">{c.tag}</span>
-                  </div>
                   <div className="case-body">
                     <div>
                       <h3>{c.name}</h3>
@@ -975,7 +993,6 @@ export default function App() {
 
             <div>
               <div className="cta-scarcity-strip">
-                <span className="scarcity-dot" />
                 Vagas limitadas para este trimestre: máximo de 3 novas operações
               </div>
             </div>
