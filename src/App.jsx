@@ -266,8 +266,20 @@ const SERVICES_DATA = [
 /* ─── Real Cases Data ─── */
 const CASES_DATA = [
   {
+    name: "Ez-tech",
+    tag: "Ecossistema Tech & Soluções Digitais",
+    browserUrl: "ez-tech.io",
+    src: "/assets/images/progetto.jpg",
+    desc: "Cofundador e estrategista digital. Criação de ecossistemas web sob medida, automações com IA e infraestrutura comercial de alta conversão.",
+    metric: "Operação Proprietária",
+    result: "Escala e infraestrutura tecnológica.",
+    link: "https://instagram.com/eztech.io",
+    siteLink: "https://ez-tech.io/",
+  },
+  {
     name: "Showco",
     tag: "Eventos & Produção Audiovisual",
+    browserUrl: "instagram.com/showco",
     src: "/assets/images/case_showco_1788367423847.jpg",
     desc: "Produção massiva de mídias, captação presencial de alta energia e cobertura audiovisual em grandes eventos.",
     metric: "Conteúdo Viral",
@@ -277,6 +289,7 @@ const CASES_DATA = [
   {
     name: "Casa Majô",
     tag: "Estética & Eventos",
+    browserUrl: "casamajo.com.br",
     src: "/assets/images/case_majo_1788367435646.jpg",
     desc: "Funil tático de anúncios no Instagram e triagem automatizada com chatbot para reservas.",
     metric: "ROAS 10.5x",
@@ -286,6 +299,7 @@ const CASES_DATA = [
   {
     name: "Progetto Marmo",
     tag: "Alto Padrão & Web Design",
+    browserUrl: "progettomarmoexpress.com.br",
     src: "/assets/images/case_marmo_1788367446711.jpg",
     desc: "Posicionamento estético de luxo, captação via Google Search e criação do site completo de alta performance (Marmo Express).",
     metric: "Conversão Otimizada",
@@ -296,6 +310,7 @@ const CASES_DATA = [
   {
     name: "YouFighter",
     tag: "Fitness & Comunidade",
+    browserUrl: "instagram.com/youfighter_br",
     src: "/assets/images/case_youfighter_1788367458854.jpg",
     desc: "Geração ágil de novos alunos e construção de comunidade apaixonada com criativos em vídeo de alta retenção.",
     metric: "Redução de CPA",
@@ -436,7 +451,7 @@ export default function App() {
         </div>
       </header>
 
-      <section className="hero-section">
+      <section className="hero-section section-dark-base">
         <div className="container">
           <Reveal>
             <h1 className="hero-title">
@@ -491,7 +506,7 @@ export default function App() {
         </Reveal>
       </section>
 
-      <section className="phone-section" ref={phoneRef}>
+      <section className="phone-section section-dark-elevated" ref={phoneRef}>
         <div className="container">
           <div className="phone-section-inner">
             <Reveal>
@@ -619,8 +634,8 @@ export default function App() {
       {/* Serviços: Divisória mais grossa */}
       <section
         id="servicos"
-        className="section-spacing"
-        style={{ borderTop: "2px solid rgba(255, 255, 255, 0.08)" }}
+        className="section-spacing section-dark-base"
+        style={{ borderTop: "1px solid rgba(255, 255, 255, 0.06)" }}
       >
         <div className="container">
           <div className="section-header" style={{ marginBottom: "24px" }}>
@@ -661,11 +676,7 @@ export default function App() {
       </section>
 
       {/* Cases: Divisória mais grossa */}
-      <section
-        id="cases"
-        className="section-spacing"
-        style={{ borderTop: "2px solid rgba(255, 255, 255, 0.08)" }}
-      >
+      <section id="cases" className="section-spacing section-dark-elevated">
         <div className="container">
           <div className="section-header" style={{ marginBottom: "24px" }}>
             <div className="section-header-text">
@@ -685,6 +696,24 @@ export default function App() {
               renderItem={(c) => (
                 <div className="case-card-editorial">
                   <div className="case-body">
+                    <div className="case-browser-frame">
+                      <div className="case-browser-header">
+                        <div className="case-browser-dots">
+                          <i />
+                          <i />
+                          <i />
+                        </div>
+                        <span className="case-browser-url">
+                          {c.browserUrl || "projeto-exclusivo"}
+                        </span>
+                      </div>
+                      <img
+                        src={c.src}
+                        alt={c.name}
+                        className="case-browser-preview"
+                        loading="lazy"
+                      />
+                    </div>
                     <div>
                       <h3>{c.name}</h3>
                       <p>{c.desc}</p>
@@ -770,8 +799,8 @@ export default function App() {
 
       <section
         id="simulador"
-        className="section-spacing"
-        style={{ borderTop: "2px solid rgba(255, 255, 255, 0.08)" }}
+        className="section-spacing section-dark-base"
+        style={{ borderTop: "1px solid rgba(255, 255, 255, 0.06)" }}
       >
         <div className="container">
           <div
@@ -928,11 +957,7 @@ export default function App() {
         </div>
       </section>
 
-      <section
-        id="sobre"
-        className="section-spacing"
-        style={{ borderTop: "2px solid rgba(255, 255, 255, 0.08)" }}
-      >
+      <section id="sobre" className="section-spacing section-dark-elevated">
         <div className="container">
           <Reveal>
             <div className="about-grid-editorial">
@@ -986,8 +1011,8 @@ export default function App() {
 
       <section
         id="faq"
-        className="section-spacing"
-        style={{ borderTop: "2px solid rgba(255, 255, 255, 0.08)" }}
+        className="section-spacing section-dark-base"
+        style={{ borderTop: "1px solid rgba(255, 255, 255, 0.06)" }}
       >
         <div className="container">
           <div
@@ -1038,7 +1063,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className="cta-section-clean">
+      <section className="cta-section-clean section-dark-elevated">
         <div className="container">
           <Reveal>
             <h2
@@ -1104,7 +1129,7 @@ export default function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Ezitech (Agência Parceira)
+                  Ez-tech (Agência Parceira)
                 </a>
               </p>
               <p>
