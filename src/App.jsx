@@ -1,9 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   motion,
   AnimatePresence,
   useScroll,
   useTransform,
+  useMotionValue,
+  useSpring,
 } from "framer-motion";
 import {
   ArrowRight,
@@ -36,6 +38,64 @@ const Reveal = ({ children, delay = 0, style }) => (
     {children}
   </motion.div>
 );
+
+/* ─── Kinetic Flip Words Component ─── */
+const FlipWords = ({ words, duration = 3000, className = "" }) => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % words.length);
+    }, duration);
+    return () => clearInterval(timer);
+  }, [words.length, duration]);
+
+  return (
+    <span
+      className={`inline-block relative ${className}`}
+      style={{ minHeight: "1.1em", verticalAlign: "bottom" }}
+    >
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={words[index]}
+          initial={{ opacity: 0, y: 18, filter: "blur(4px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -18, filter: "blur(4px)" }}
+          transition={{ type: "spring", stiffness: 140, damping: 15 }}
+          className="inline-block whitespace-nowrap"
+        >
+          {words[index]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+};
+
+/* ─── Animated Number Counter (Spring Physics) ─── */
+const AnimatedCounter = ({ value, locale = "pt-BR" }) => {
+  const ref = useRef(null);
+  const motionVal = useMotionValue(value);
+  const springVal = useSpring(motionVal, { stiffness: 90, damping: 20 });
+
+  useEffect(() => {
+    motionVal.set(value);
+  }, [value, motionVal]);
+
+  useEffect(() => {
+    const unsub = springVal.on("change", (latest) => {
+      if (ref.current) {
+        ref.current.textContent = Math.round(latest).toLocaleString(locale);
+      }
+    });
+    return () => unsub();
+  }, [springVal, locale]);
+
+  return (
+    <span ref={ref} style={{ fontVariantNumeric: "tabular-nums" }}>
+      {value.toLocaleString(locale)}
+    </span>
+  );
+};
 
 /* ─── Infinite Custom Slider Component ─── */
 const InfiniteSlider = ({ items, renderItem }) => {
@@ -381,7 +441,15 @@ export default function App() {
           <Reveal>
             <h1 className="hero-title">
               A estrutura comercial completa para seu negócio rodar com{" "}
-              <span className="text-gradient">escala e autonomia.</span>
+              <FlipWords
+                words={[
+                  "escala e autonomia.",
+                  "lucro real e previsível.",
+                  "alta conversão diária.",
+                  "máxima eficiência.",
+                ]}
+                className="text-gradient"
+              />
             </h1>
           </Reveal>
 
@@ -802,9 +870,12 @@ export default function App() {
                     <div className="summary-est-label">
                       Investimento Mensal Estimado
                     </div>
-                    <div className="summary-est-value">
-                      R$ {min.toLocaleString("pt-BR")} ~ R${" "}
-                      {max.toLocaleString("pt-BR")}
+                    <div
+                      className="summary-est-value"
+                      style={{ fontVariantNumeric: "tabular-nums" }}
+                    >
+                      R$ <AnimatedCounter value={min} /> ~ R${" "}
+                      <AnimatedCounter value={max} />
                     </div>
                   </div>
                   <div style={{ textAlign: "right" }}>
